@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 const useAppNavigate = () => {
 	const navigate = useNavigate();
 
-	const { ROOT, ERROR } = APP_ROUTES;
+	const { ROOT, ERROR, APP } = APP_ROUTES;
 
 	const typeSafeNavigate = useMemo(
 		() => ({
@@ -14,9 +14,12 @@ const useAppNavigate = () => {
 			toError: (option?: NavigateOptions) => navigate(ERROR, option),
 
 			// Unauthenticated routes
-			toRoot: (option?: NavigateOptions) => navigate(ROOT, option)
+			toRoot: (option?: NavigateOptions) => navigate(ROOT, option),
+			toDashboard: (option?: NavigateOptions) => navigate(APP.DASHBOARD, option),
+			toCancelPayment: (option?: NavigateOptions) => navigate(APP.CANCEL_PAYMENT, option),
+			toCompletePayment: (option?: NavigateOptions) => navigate(APP.COMPLETE_PAYMENT, option)
 		}),
-		[navigate, ERROR, ROOT]
+		[navigate, ERROR, ROOT, APP]
 	);
 
 	return typeSafeNavigate;

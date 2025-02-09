@@ -5,7 +5,9 @@ export const APP_ROUTES = {
 
 	APP: {
 		ROOT: '/app',
-		DASHBOARD: '/app/dashboard'
+		DASHBOARD: '/app/dashboard',
+		CANCEL_PAYMENT: '/app/cancel-payment',
+		COMPLETE_PAYMENT: '/app/complete-payment'
 	}
 } as const;
 

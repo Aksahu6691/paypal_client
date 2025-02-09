@@ -22,6 +22,7 @@
     "@heroui/system": "2.4.6",
     "@heroui/theme": "2.4.5",
     "@nextui-org/react": "^2.6.11",
+    "@paypal/react-paypal-js": "^8.8.2",
     "@react-aria/visually-hidden": "3.8.12",
     "@react-types/shared": "3.26.0",
     "axios": "^1.7.9",
