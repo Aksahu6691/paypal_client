@@ -8,10 +8,13 @@ const Nav = () => {
 			</Link>
 			<ul className="flex items-center">
 				<li className="mr-6">
-					<Link to="/about">About</Link>
+					<Link to="/app">Dashboard</Link>
+				</li>
+				<li className="mr-6">
+					<Link to="/app/cancel-payment">Cancel Payment</Link>
 				</li>
 				<li>
-					<Link to="/contact">Contact</Link>
+					<Link to="/app/complete-payment">Completed Payment</Link>
 				</li>
 			</ul>
 		</nav>

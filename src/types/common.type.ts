@@ -21,3 +21,11 @@ export interface IApiResponseData<T> {
 	errorMsg: string;
 	response?: T | null;
 }
+
+export interface IProduct {
+	id: string;
+	name: string;
+	price: number;
+	currency: string;
+	image: string;
+}

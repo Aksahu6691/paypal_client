@@ -7,10 +7,19 @@ import {
 import env from '../config/env.config';
 import usePaypalApi from '@/api/paypal/usePaypalApi';
 import useAppNavigate from '@/hooks/useAppNavigate';
+import { products } from '@/helpers/data';
+import ScreenWrapper from '@/components/ScreenWrapper';
+import ProductCard from '@/components/ProductCard';
+import { useState } from 'react';
+import { IProduct } from '@/types/common.type';
+import CustomButton from '@/components/common/CustomButton';
 
 const Dashboard = () => {
-	const { createOrder, capturePayment } = usePaypalApi();
 	const navigate = useAppNavigate();
+	const { createOrder, capturePayment } = usePaypalApi();
+
+	const [loading, setLoading] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState<IProduct>();
 
 	const initialOptions: ReactPayPalScriptOptions = {
 		clientId: `${env.PAYPAL_CLIENT_ID}`
@@ -22,8 +31,19 @@ const Dashboard = () => {
 		layout: 'vertical'
 	};
 
+	const handlePurchase = (product: IProduct) => {
+		setSelectedProduct(product);
+	};
+
+	const clearProductSelection = () => {
+		setSelectedProduct(undefined);
+	};
+
 	const onCreateOrder = async () => {
-		const { response } = await createOrder();
+		if (!selectedProduct) return '';
+		setLoading(true);
+		const { response } = await createOrder(selectedProduct);
+		setLoading(false);
 		return response?.orderId ?? '';
 	};
 
@@ -43,27 +63,39 @@ const Dashboard = () => {
 		console.error('PayPal payment error', error);
 	};
 
-	return (
-		<div className="App">
-			<div>
-				<h2>Select Plan</h2>
-				<p>
-					<strong>Free:</strong> Limited features
-				</p>
-				<p>
-					<strong>Pro:</strong> Access all features for $50
-				</p>
+	const renderPaymentButtons = () => {
+		if (!selectedProduct) return;
+		return (
+			<div className="flex justify-center my-4">
+				<div className="w-[50%]">
+					<PayPalScriptProvider options={initialOptions}>
+						<PayPalButtons style={styles} createOrder={onCreateOrder} onApprove={onApprove} onError={onError} />
+					</PayPalScriptProvider>
+					<CustomButton
+						variant="faded"
+						className="w-full mt-4 shadow font-bold text-xl"
+						size="lg"
+						onPress={clearProductSelection}
+					>
+						Cancel
+					</CustomButton>
+				</div>
 			</div>
-			<PayPalScriptProvider options={initialOptions}>
-				<PayPalButtons
-					style={styles}
-					createOrder={onCreateOrder}
-					onApprove={onApprove}
-					onError={onError}
-					// fundingSource="paypal"
+		);
+	};
+
+	return (
+		<ScreenWrapper>
+			<div className="my-4">
+				<ProductCard
+					products={products}
+					selectedProduct={selectedProduct}
+					handlePurchase={handlePurchase}
+					loading={loading}
 				/>
-			</PayPalScriptProvider>
-		</div>
+			</div>
+			{renderPaymentButtons()}
+		</ScreenWrapper>
 	);
 };
 
