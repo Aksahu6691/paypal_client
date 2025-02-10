@@ -16,6 +16,7 @@ const Routes = () => {
 				<Route path={APP_ROUTES.ROOT} element={<AuthenticatedUserLayout />}>
 					<Route path={APP_ROUTES.ROOT} element={<Dashboard />} />
 					<Route path={APP_ROUTES.APP.ROOT} element={<Dashboard />} />
+					<Route path={APP_ROUTES.APP.DASHBOARD} element={<Dashboard />} />
 					<Route path={APP_ROUTES.APP.CANCEL_PAYMENT} element={<CancelPayment />} />
 					<Route path={APP_ROUTES.APP.COMPLETE_PAYMENT} element={<CompletePayment />} />
 				</Route>

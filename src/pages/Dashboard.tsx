@@ -67,7 +67,7 @@ const Dashboard = () => {
 		if (!selectedProduct) return;
 		return (
 			<div className="flex justify-center my-4">
-				<div className="w-[50%]">
+				<div className="w-1/3">
 					<PayPalScriptProvider options={initialOptions}>
 						<PayPalButtons style={styles} createOrder={onCreateOrder} onApprove={onApprove} onError={onError} />
 					</PayPalScriptProvider>
