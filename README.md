@@ -14,7 +14,7 @@
 To clone the project, run the following command:
 
 ```bash
-git clone https://github.com/Aksahu6691/online_center.git
+git clone https://github.com/Aksahu6691/paypal_client.git
 ```
 
 ### Install dependencies
