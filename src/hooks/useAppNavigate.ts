@@ -15,7 +15,9 @@ const useAppNavigate = () => {
 
 			// Unauthenticated routes
 			toRoot: (option?: NavigateOptions) => navigate(ROOT, option),
-			toDashboard: (option?: NavigateOptions) => navigate(APP.DASHBOARD, option),
+			toDashboard: (option?: NavigateOptions) => navigate(APP.ROOT, option),
+			toCheckout: (option?: NavigateOptions) => navigate(APP.CHECKOUT, option),
+			toSubscription: (option?: NavigateOptions) => navigate(APP.SUBSCRIPTION, option),
 			toCancelPayment: (option?: NavigateOptions) => navigate(APP.CANCEL_PAYMENT, option),
 			toCompletePayment: (option?: NavigateOptions) => navigate(APP.COMPLETE_PAYMENT, option)
 		}),

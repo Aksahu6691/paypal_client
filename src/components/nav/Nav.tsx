@@ -1,22 +1,31 @@
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+import { NAVIGATION_ROUTES } from '@/utils/constants';
+import { cn } from '@nextui-org/react';
 
 const Nav = () => {
+	const { pathname } = useLocation();
+
+	const renderDesktopNavigation = () => {
+		return Object.entries(NAVIGATION_ROUTES).map(([key, route]) => (
+			<Link
+				key={key}
+				to={route}
+				className={cn(
+					'hover:text-pink-400 transition-colors text-black',
+					pathname === route && 'font-bold text-pink-purple'
+				)}
+			>
+				{key.charAt(0) + key.slice(1).toLowerCase()}
+			</Link>
+		));
+	};
+
 	return (
 		<nav className="flex items-center justify-between p-4 shadow">
 			<Link to="/" className="text-xl font-bold">
 				My Project
 			</Link>
-			<ul className="flex items-center">
-				<li className="mr-6">
-					<Link to="/app">Dashboard</Link>
-				</li>
-				<li className="mr-6">
-					<Link to="/app/cancel-payment">Cancel Payment</Link>
-				</li>
-				<li>
-					<Link to="/app/complete-payment">Completed Payment</Link>
-				</li>
-			</ul>
+			<div className="hidden md:flex gap-5 justify-between">{renderDesktopNavigation()}</div>
 		</nav>
 	);
 };
