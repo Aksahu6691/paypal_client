@@ -8,14 +8,14 @@ const usePaypalApi = () => {
 
 	const createOrder = useCallback(
 		async (payload: IProduct): Promise<IApiResponseData<IPaypalResponse>> => {
-			return await post<IPaypalResponse>(`/paypal/create-order`, payload);
+			return await post<IPaypalResponse>(`/checkout/create-order`, payload);
 		},
 		[post]
 	);
 
 	const capturePayment = useCallback(
 		async (orderId: string): Promise<IApiResponseData<IPaypalResponse>> => {
-			return await get<IPaypalResponse>(`/paypal/capture-payment/${orderId}`);
+			return await get<IPaypalResponse>(`/checkout/capture-payment/${orderId}`);
 		},
 		[get]
 	);
