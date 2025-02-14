@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { IApiResponseData } from '@/types/common.type';
 import { useHttpMethodContext } from '@/context/HttpContextProvider';
-import { ICreateSubscriptionResponse, IGetSubscriptionResponse } from './subscription.types';
+import { ICreateSubscriptionResponse, IGetSubscriptionPayload, IGetSubscriptionResponse } from './subscription.types';
 
 const useSubscriptionApi = () => {
-	const { post, get } = useHttpMethodContext();
+	const { post } = useHttpMethodContext();
 
 	const createSubscription = useCallback(
 		async (plan_id: string): Promise<IApiResponseData<ICreateSubscriptionResponse>> => {
@@ -13,14 +13,14 @@ const useSubscriptionApi = () => {
 		[post]
 	);
 
-	const getSubscription = useCallback(
-		async (id: string): Promise<IApiResponseData<IGetSubscriptionResponse>> => {
-			return await get<IGetSubscriptionResponse>(`/subscription/get/${id}`);
+	const approveSubscription = useCallback(
+		async (payload: IGetSubscriptionPayload): Promise<IApiResponseData<IGetSubscriptionResponse>> => {
+			return await post<IGetSubscriptionResponse>(`/subscription/approve`, payload);
 		},
-		[get]
+		[post]
 	);
 
-	return { createSubscription, getSubscription };
+	return { createSubscription, approveSubscription };
 };
 
 export default useSubscriptionApi;
