@@ -17,12 +17,10 @@ const Subscription = () => {
 	const onApprove = async (data: any) => {
 		try {
 			if (!data?.orderID && !data?.subscriptionID) throw new Error('Invalid order ID');
-			const { success, response } = await approveSubscription({
+			const { success } = await approveSubscription({
 				orderID: data?.orderID,
 				subscriptionID: data?.subscriptionID
 			});
-			// TODO: Will use this data and remove it
-			console.log('onApprove_response', response);
 			if (success) {
 				showToast('Subscription approved successfully', 'success');
 				navigate.toCompletePayment();
